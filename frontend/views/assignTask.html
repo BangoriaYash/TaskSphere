@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskApp" ng-controller="assignTaskController">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <!-- Your App Scripts -->
+    <script src="frontend/app.js"></script>
+    <script src="frontend/services/authService.js"></script>
+    <script src="frontend/controllers/taskController.js"></script>
+    <script src="frontend/controllers/projectController.js"></script>
+</head>
+<body class="container mt-4" >
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#!/admin">Home Page</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="#!/view-project">View Project</a>
+      </div>
+    </div>
+  </nav><br>
+  <div>
+    <h2>My Tasks</h2>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="task in myTasks">
+        <span>{{task.title}} - {{task.project.name}}</span>
+        <button class="btn btn-primary" ng-click="goToEmpList(task)">Assign Task</button>
+        <button class="btn btn-sm btn-warning" ng-click="goToUpdateTask(task)">Update Task</button>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

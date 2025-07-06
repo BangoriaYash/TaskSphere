@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assign Task</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+  <!-- AngularJS App Scripts -->
+  <script src="frontend/app.js"></script>
+  <script src="frontend/services/authService.js"></script>
+  <script src="frontend/controllers/taskController.js"></script>
+  <script src="frontend/controllers/projectController.js"></script>
+  <style>
+    input[type="checkbox"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 10px;
+      appearance: auto !important;
+    }
+  </style>
+  
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#!/admin">Home Page</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="#!/view-project">View Project</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container py-5" ng-controller="taskEmployeeController">
+
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+      <h3 class="font-weight-bold">Assign Task to Employees</h3>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div ng-if="loadingEmployees" class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <p class="mt-2">Loading employees...</p>
+    </div>
+
+    <!-- No Employees Message -->
+    <div ng-if="!loadingEmployees && employees.length === 0" class="alert alert-warning mt-4 text-center">
+      ❗ No employees found to assign tasks.
+    </div>
+
+    <!-- Employee Selection List -->
+    <div ng-if="!loadingEmployees && employees.length > 0" class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-info text-white font-weight-bold">
+            Select Employees
+          </div>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="employee in employees">
+                <div class="form-check d-flex justify-content-between align-items-center">
+                  <div>
+                    <input type="checkbox" class="form-check-input" id="emp{{$index}}" ng-model="employee.selected">
+                    <label class="form-check-label" for="emp{{$index}}">
+                      <strong>{{ employee.username }}</strong>
+                    </label>
+                  </div>
+                  <small class="text-muted">{{ employee.email }}</small>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Assign Button -->
+        <div class="text-center">
+          <button class="btn btn-success px-4" ng-click="assignTask()">Assign Task</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

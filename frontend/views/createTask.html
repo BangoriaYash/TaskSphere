@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskApp">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Project</title>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+
+  <!-- Angular App and Scripts -->
+  <script src="frontend/app.js"></script>
+  <script src="frontend/services/authService.js"></script>
+  <script src="frontend/controllers/taskController.js"></script>
+  <script src="frontend/controllers/projectController.js"></script>
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      border-radius: 12px 12px 0 0;
+      font-size: 24px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+    }
+
+    .btn-success {
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .btn-block {
+      margin-top: 20px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+    }
+
+    @media (max-width: 576px) {
+      .col-md-6,
+      .col-lg-5 {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body ng-controller="taskController">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card">
+          <div class="card-header">
+            <h4><i class="fas fa-project-diagram"></i> Create New Task</h4>
+          </div>
+          <div class="card-body">
+              <!-- Task title -->
+              <div class="form-group">
+                <input type="text" id="title" class="form-control" ng-model="newTask.title"
+                  placeholder="Enter Task Title" required  />
+              </div>
+
+              <!-- Task Description -->
+              <div class="form-group">
+                <textarea id="description" class="form-control" ng-model="newTask.description"
+                  placeholder="Enter Task description" rows="3" required></textarea>
+              </div>
+
+              <!-- Start Date -->
+              <div class="form-group">
+                <input type="date" id="startDate" class="form-control" ng-model="newTask.startDate" required />
+              </div>
+
+              <!-- End Date -->
+              <div class="form-group">
+                <input type="date" id="endDate" class="form-control" ng-model="newTask.endDate" required />
+              </div>
+            
+              <!-- <input type="hidden" ng-model="newTask.project" value="PROJECT_ID_HERE"> -->
+              <!-- Submit Button -->
+              <button type="submit" ng-click="createTask()"class="btn btn-success btn-block" ng-disabled="form.$invalid">
+                <i class="fas fa-plus-circle"></i> Create Task
+              </button>
+              <button type="button" class="btn btn-primary btn-block mt-2" ng-click="goToTaskList(newTask.project)">
+                <i class="fas fa-tasks"></i> View My Tasks & Assign Role
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

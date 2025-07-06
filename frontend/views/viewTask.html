@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskApp">
+<head>
+  <meta charset="UTF-8">
+  <title>View Tasks</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="frontend/app.js"></script>
+  <script src="frontend/services/authService.js"></script>
+  <!-- <script src="frontend/controllers/projectController.js"></script> -->
+  <script src="frontend/controllers/taskController.js"></script>
+</head>
+
+<body ng-controller="assignTaskController">
+
+    <div ng-if="loadingTasks" class="text-center">
+        <p>Loading tasks...</p>
+        <!-- You can use a spinner here, for example: -->
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      
+      <div ng-if="showTaskBoard && !loadingTasks" class="container mt-5">
+        <h3 class="text-center mb-4">Tasks for Selected Project</h3>
+      
+        <div ng-if="tasks.length === 0" class="text-center">
+            <p>No tasks found for this project.</p>
+          </div>
+        
+          <div ng-if="tasks.length > 0" class="row">
+          <!-- To-Do Column -->
+          <div class="col-md-4">
+            <h4 class="text-primary text-center">To-Do</h4>
+            <div class="card mb-3" ng-repeat="task in tasks | filter:{status: 'to-do'}">
+              <div class="card-body">
+                <h5 class="card-title">{{task.title}}</h5>
+                <p class="card-text">{{task.description}}</p>
+                <button ng-if="isAssignedToCurrentUser(task) && $root.currentUser.role === 'employee'"
+                class="btn btn-warning btn-sm"
+                ng-click="changeTaskStatus(task)">
+                Start Task
+                </button>
+              </div>
+            </div>
+          </div>
+      
+          <!-- In-Progress Column -->
+          <div class="col-md-4">
+            <h4 class="text-warning text-center">In Progress</h4>
+            <div class="card mb-3" ng-repeat="task in tasks | filter:{status: 'in-progress'}">
+              <div class="card-body">
+                <h5 class="card-title">{{task.title}}</h5>
+                <p class="card-text">{{task.description}}</p>
+                <button ng-if="isAssignedToCurrentUser(task) && $root.currentUser.role === 'employee'"
+                class="btn btn-success btn-sm"
+                ng-click="changeTaskStatus(task)">
+                Mark Completed
+              </button>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Completed Column -->
+          <div class="col-md-4">
+            <h4 class="text-success text-center">Completed</h4>
+            <div class="card mb-3" ng-repeat="task in tasks | filter:{status: 'completed'}">
+              <div class="card-body">
+                <h5 class="card-title">{{task.title}}</h5>
+                <p class="card-text">{{task.description}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="text-center">
+          <button class="btn btn-secondary mt-4" ng-click="gotoProject()">Back to Projects</button>
+        </div>
+      </div>      
+</body>
+</html>

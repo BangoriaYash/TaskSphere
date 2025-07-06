@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskApp">
+<head>
+  <meta charset="UTF-8">
+  <title>All Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="frontend/app.js"></script>
+  <script src="frontend/services/authService.js"></script>
+  <script src="frontend/controllers/projectController.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#!/admin">Home Page</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="#!/assign-role">Assign Role <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="#!/create-project">Create Project</a>
+        <a class="nav-item nav-link" href="#!/login">Logout</a>
+      </div>
+    </div>
+  </nav>
+<div class="container mt-4" ng-controller="projectController" >
+  <div ng-if="loadingProjects" class="text-center mt-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  
+  <div ng-if="!loadingProjects && projects.length === 0" class="alert alert-warning text-center">
+    ❗You're not involved in any projects yet.
+  </div>
+  
+  <div ng-if="!loadingProjects && projects.length > 0">
+    <h3 class="mb-4 text-center">All Projects You're Involved In</h3>
+    <div class="card mb-3" ng-repeat="project in projects">
+      <div class="card-header bg-primary text-white">
+        {{ project.name }}
+      </div>
+      <div class="card-body">
+        <div ng-if="project.status === 'expired'" class="alert alert-danger">
+          ⚠️ This project has expired!
+        </div>
+        <p class="card-text">
+          <strong>Your Role:</strong> 
+          <span ng-if="project.createdBy._id === currentUser.id">Admin</span>
+          <span ng-if="getUserRole(project) && project.createdBy._id !== currentUser.id">{{ getUserRole(project) }}</span>
+          <br>
+          <strong>Description:</strong> {{ project.description }}<br>
+          <strong>Start Date:</strong> {{ project.startDate | date:'shortDate' }}<br>
+          <strong>End Date:</strong> {{ project.endDate | date:'shortDate' }}<br>
+          <strong>Status:</strong> {{ project.status }}
+        </p>
+      </div>
+      <button class="btn btn-success" 
+          ng-if="getUserRole(project) === 'leader'" 
+          ng-click="createTask(project._id)">
+          ➕ Create Task
+      </button>
+      <button class="btn btn-warning" ng-if="project.createdBy._id === currentUser.id"
+            ng-click="goToUpdateProject(project._id)">
+      Update Project
+    </button>
+    <button class="btn btn-info mt-2" ng-click="viewtask(project._id)">
+      📋 View Tasks
+    </button>    
+    </div>
+  </div>
+</div>
+</body>
+</html>

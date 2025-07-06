@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskApp">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Project</title>
+  
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+
+  <!-- Angular App and Scripts -->
+  <script src="frontend/app.js"></script>
+  <script src="frontend/services/authService.js"></script>
+  <script src="frontend/controllers/projectController.js"></script>
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      border-radius: 12px 12px 0 0;
+      font-size: 24px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+    }
+
+    .btn-success {
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .btn-block {
+      margin-top: 20px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+    }
+
+    @media (max-width: 576px) {
+      .col-md-6,
+      .col-lg-5 {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body ng-controller="projectController">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#!/admin">Home Page</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="#!/assign-role">Assign Role <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="#!/view-project">View Project</a>
+        <a class="nav-item nav-link" href="#!/login">Logout</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card">
+          <div class="card-header">
+            <h4><i class="fas fa-project-diagram"></i> Create New Project</h4>
+          </div>
+          <div class="card-body">
+            <form name="form" ng-submit="createProject()">
+              <!-- Project Name -->
+              <div class="form-group">
+                <input type="text" id="name" class="form-control" ng-model="project.name"
+                  placeholder="Enter project name" required ng-minlength="3" ng-maxlength="100" />
+              </div>
+
+              <!-- Project Description -->
+              <div class="form-group">
+                <textarea id="description" class="form-control" ng-model="project.description"
+                  placeholder="Enter project description" rows="3" required></textarea>
+              </div>
+
+              <!-- Start Date -->
+              <div class="form-group">
+                <input type="date" id="startDate" class="form-control" ng-model="project.startDate" required />
+              </div>
+
+              <!-- End Date -->
+              <div class="form-group">
+                <input type="date" id="endDate" class="form-control" ng-model="project.endDate" required />
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-success btn-block" ng-disabled="form.$invalid">
+                <i class="fas fa-plus-circle"></i> Create Project
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

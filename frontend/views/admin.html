@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="frontend/app.js"></script>
+  <script src="frontend/services/authService.js"></script>
+  <!-- <script src="frontend/controllers/projectController.js"></script> -->
+</head>
+<body>
+
+<div class="row">
+  <!-- Sidebar -->
+  <div class="col-md-3 bg-light p-3" style="height: 100vh;">
+    <h5 class="text-dark">Navigation</h5>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link" href="#!/create-project">Create Project</a></li>
+      <li class="nav-item"><a class="nav-link" href="#!/assign-role">Assign Roles</a></li>
+      <li class="nav-item"><a class="nav-link" href="#!/view-project">View Projects</a></li>
+      <li class="nav-item"><a class="nav-link" href="#!/login">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="col-md-9 p-4">
+    <div class="jumbotron">
+      <h1 class="display-4">Welcome!</h1>
+      <p class="lead">This is your dashboard. Use the sidebar to manage your projects.</p>
+    </div>
+</body>
+</html>

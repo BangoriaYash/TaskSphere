@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <title>Document</title>
+    <script src="frontend/app.js"></script>
+    <script src="frontend/services/authService.js"></script>
+    <script src="frontend/controllers/projectController.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#!/admin">Home Page</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="#!/create-project">Create Project <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="#!/view-project">View Project</a>
+        <a class="nav-item nav-link" href="#!/login">Logout</a>
+      </div>
+    </div>
+  </nav><br>
+  <div class="container" ng-controller="projectController">
+    <div ng-if="proj.length === 0" class="alert alert-warning mt-4">
+      ❗You haven't created any projects yet, so you can't assign roles to anyone.
+    </div>
+    <div class="card mb-4" ng-repeat="project in proj">
+      <div class="card-header bg-info text-white">
+        {{ project.name }} - Assign Roles
+      </div>
+  
+      <div class="card-body">
+        <div ng-repeat="user in users"  class="mb-3 border-bottom pb-2">
+          <div><strong>{{ user.name }}</strong> - {{ user.email }}</div>
+          <div class="d-flex align-items-center">
+            <select class="form-control mr-2"
+            ng-model="user.selectedRole"
+            ng-init="user.selectedRole = getAssignedRole(user._id, project)">
+            <option value="">-- Select Role --</option>
+            <option value="leader">Leader</option>
+            <option value="employee">Employee</option>
+          </select>
+            <button class="btn btn-primary btn-sm"
+                    ng-click="assignRole(user._id, user.selectedRole, project._id)">
+              Assign
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  
+</body>
+</html>
